@@ -1,0 +1,24 @@
+{% comment %}
+  Pass these variables into snippet:
+  * image: Image object
+  * sizes: srcset size attribute
+{% endcomment %}
+
+
+<img src="{{ image | img_url: '600x' }}"
+     alt="{{ image.alt | escape }}"
+     srcset="{{ image | img_url: '320x' }} 320w,
+             {{ image | img_url: '480x' }} 480w,
+             {{ image | img_url: '600x' }} 600w,
+             {{ image | img_url: '800x' }} 800w,
+             {{ image | img_url: '1000x' }} 1000w,
+             {{ image | img_url: '1200x' }} 1200w,
+             {{ image | img_url: '1400x' }} 1400w,
+             {{ image | img_url: '1600x' }} 1600w,
+             {{ image | img_url: '1800x' }} 1800w,
+             {{ image | img_url: '2000x' }} 2000w,
+             {{ image | img_url: '2200x' }} 2200w,
+             {{ image | img_url: '2400x' }} 2400w"
+
+
+     sizes="{{sizes}}" />

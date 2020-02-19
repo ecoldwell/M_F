@@ -1,0 +1,8 @@
+<ul class="grid">
+  {% for product in collection.products %}
+    {% include 'product-grid-item' %}
+  {% else %}
+    <li class="grid-item empty-collection-warning">
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,13 @@
+<script>window.isHomePage = true; </script>
+{% assign is_home_page = true %}
+
+{% if template == "index" %}
+  {% include 'header' %}
+  {% include 'mobile-homepage' %}
+
+  {% include 'videos' %}
+  {% include 'full-screen-video' %}
+  {% include 'site-nav' %}
+{% endif %}
+
+

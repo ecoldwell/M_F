@@ -1,0 +1,213 @@
+{% assign add_to_cart = 'Add to cart' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}
+
+<div class="product" itemscope itemtype="http://schema.org/Product">
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product | img_url: 'grande' }}" />
+
+  <!-- <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm"> -->
+  <div class="product-inner">
+    <ul class="product-photos">
+      {% if product.images.size > 0 %}
+        {% for image in product.images %}
+        <li class="product-photo">
+          <a href="{{ image  | img_url: '2400x' }}" class="lightbox-link">
+            {% include 'responsive-image', image: image, sizes: "(max-width: 700px) 100vw, 50vw" %}
+          </a>
+        </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+
+
+    <div class="product-details">
+      <div class="product-details-inner">
+      <div class="product-details-main">
+
+        <h1 itemprop="name">{{ product.title }}</h1>
+
+        <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="delta">
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+          {% if product.available %}
+          <link itemprop="availability" href="http://schema.org/InStock" />
+          {% else %}
+          <link itemprop="availability" href="http://schema.org/OutOfStock" />
+          {% endif %}
+          <p>
+            {% assign variant = product.selected_or_first_available_variant %}
+            {% if product.compare_at_price > product.price %}
+            <span class="product-price on-sale" itemprop="price">{{ variant.price | money }}</span>
+            <s class="product-compare-price">{{ variant.compare_at_price | money }}</s>
+            {% else %}
+            <span class="product-price" itemprop="price">{{ variant.price | money }}</span>
+            {% endif %}
+          </p>
+        </div>
+      </div><!-- .product-details-main -->
+      <div class="product-details-secondary">
+        <div id="product-description" class="rte" itemprop="description">
+          {{ product.description }}
+        </div>
+
+        <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+        {% assign hide_default_title = false %}
+        {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+          {% assign hide_default_title = true %}
+        {% endif %}
+
+<!--
+
+      {% if linklists.Product-menu.links.size > 0 %}
+        <ul class="product-details-information-menu">
+          {% for link in linklists.Product-menu.links %}
+             <li><a href="{{link.url}}" target="_blank">{{ link.title}}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+
+
+      <button id="product-select" name="id" xstyle="display: none;">
+        {% for variant in product.variants %}
+       {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}
+        {% endfor %}
+      </button>
+      {% assign option_to_match = settings.option_to_match %}
+      {% assign option_index = 0 %}
+      {% for option in product.options %}
+        {% if option == option_to_match %}
+          {% assign option_index = forloop.index0 %}
+        {% endif %}
+      {% endfor %}
+-->
+      <form action="/cart/add" method="post" class="clearfix product_form" data-money-format="{{ shop.money_format }}" data-option-index="{{ option_index }}" id="product-form-{{ product.id }}">
+
+          <div id="product-variants">
+            <div id="price-field"></div>
+            <select id="product-select" name="id">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+        {% if product.options.size > 1 %}
+          <div class="select">
+
+              {% for variant in product.variants %}
+                  <input type="radio" name="id" value="{{variant.id}}" id="radio_{{variant.id}}" {%if forloop.first%} checked="checked" {%endif%} />
+                  <label for="radio_{{variant.id}}" style="display: inline-block;">{{ variant.title }} - {{ variant.price | money }}</label>
+                  <br />
+              {% endfor %}
+
+          </div>
+        {% elsif product.options.size == 1 and product.variants.size > 1 %}
+          <div class="select variant-selection">
+            <label class="label-name">{{ product.options[0] }} </label>
+            {% for variant in product.variants %}
+              <div class="variant-selector" data-variant-id="{{variant.id}}">{{ variant.title }}</div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+        {% endif %}
+
+        {% if product.available %}
+           {% if settings.display_product_quantity %}
+             <label for="quantity">Quantity:</label>
+             <input type="number" min="1" size="2" class="quantity" name="quantity" id="quantity" value="1" />
+          {% endif %}
+          <div class="purchase clearfix {% if settings.display_product_quantity %}inline_purchase{% endif %}">
+            {% if settings.cart_return == 'back' %}
+              <input type="hidden" name="return_to" value="back" />
+            {% endif %}
+          </div>
+        {% endif %}
+        <div id="product-add">
+          <input type="submit" id="AddToCart" value="Add to Cart">
+        </div>
+      </form>
+
+
+      </div><!-- .product-details-secondary -->
+      </div><!-- .product-details-inner -->
+    </div><!-- .product-details -->
+  </div><!-- .product-inner -->
+<!--   </form> -->
+
+</div>
+
+
+{% comment %}
+  Adding support for product options. See here for details:
+  http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options
+{% endcomment %}
+
+
+<script>
+
+var selectCallback = function(variant, selector) {
+  console.log (variant, selector)
+  if (variant) {
+
+
+    // Selected a valid variant that is available.
+    if (variant.available) {
+
+       // class="variant-selector" data-variant-id="{{variant.id}}"
+
+       $newChoice = $(".variant-selector[data-variant-id='" + variant.id + "']");
+       $newChoice.closest(".variant-selection").find(".variant-selector").removeClass("selected");
+       $newChoice.addClass("selected");
+       $("#product-select").val(variant.id).change();
+      // Enabling add to cart button.
+      jQuery('#add').removeClass('disabled').prop('disabled', false).val({{ add_to_cart | json }});
+
+    // If item is backordered yet can still be ordered, we'll show special message.
+      if (variant.inventory_management && variant.inventory_quantity <= 0) {
+        jQuery('#selected-variant').html({{ product.title | json }}{% unless hide_default_title %} + ' - ' + variant.title{% endunless %});
+        jQuery('#backorder').removeClass("hidden");
+      } else {
+        jQuery('#backorder').addClass("hidden");
+      }
+
+    } else {
+      // Variant is sold out.
+      jQuery('#backorder').addClass('hidden');
+      jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);
+    }
+
+   // Whether the variant is in stock or not, we can update the price and compare at price.
+    if ( variant.compare_at_price > variant.price ) {
+      jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<s class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</s>');
+    } else {
+      jQuery('#product-price').html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );
+    }
+
+  } else {
+    // variant doesn't exist.
+    jQuery('#product-price').empty();
+    jQuery('#backorder').addClass('hidden');
+    jQuery('#add').val({{ unavailable | json }}).addClass('disabled').prop('disabled', true);
+  }
+
+};
+
+jQuery(function($) {
+
+  new Shopify.OptionSelectors('product-select', { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+
+  // Add label if only one product option and it isn't 'Title'.
+  {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+  {% endif %}
+
+});
+
+// Shopify.Image.preload({{ product.images | json }}, 'grande');
+// Shopify.Image.preload({{ product.images | json }}, '1024x1024');
+
+
+</script>

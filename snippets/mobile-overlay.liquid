@@ -1,0 +1,54 @@
+{% comment %}
+<div class="mobile-nav mobile-nav-overlay overlay overlayNav" style="display:none;">
+<div class="mobile-wrapper">
+  <div class="mobile-overlay-header">
+    <h1>Ashley Rowe</h1>
+    <a class="close-overlay">Close</a> <hr />
+  </div>
+
+  <div class="ul-mobile">
+
+    <ul class="mobile-nav-list"><a href="/">Shop</a>
+    {% for link in linklists.shop-submenu.links %}
+      {% assign handle = link.title | handleize  %}
+      {% if link.url != "#directory" %}
+        <li class="{{handle}}  {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+
+    {% endif %}
+  {% endfor %} <hr />
+  </ul>
+
+    <ul class="mobile-nav-list"><a href="/pages/about">About</a>
+    {% for link in linklists.about-submenu.links %}
+      {% assign handle = link.title | handleize  %}
+      {% if link.url != "#directory" %}
+        <li class="{{handle}}  {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+
+    {% endif %}
+  {% endfor %} <hr />
+  </ul>
+
+    <ul class="mobile-nav-list">
+      Connect
+    {% for link in linklists.footer.links %}
+      {% assign handle = link.title | handleize  %}
+      {% if link.url != "#directory" %}
+        <li class="{{handle}}  {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}" {% if link.type == "http_link" %}target="_blank" {% endif %}>{{ link.title }}</a>
+        </li>
+
+    {% endif %}
+  {% endfor %} <hr />
+
+
+    </ul>
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+

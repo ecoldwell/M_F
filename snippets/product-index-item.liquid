@@ -1,0 +1,51 @@
+{% assign image = product.featured_image.src | img_url: '1024x1024' %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+
+
+{% assign has_own_row = false %}
+{% if template == 'index' and product.tags contains "grid:own-row" %}
+  {% assign has_own_row = true %}
+{% endif %}
+
+{% assign full_width_image = false %}
+{% if template == 'index' and product.tags contains "grid:own-row-wide-image" %}
+  {% assign full_width_image = true %}
+  {% assign image = product.featured_image.src | img_url: '2048x2048' %}
+{% endif %}
+
+<a class="item-grid-item {% if on_sale %}on-sale{% endif %} {% if sold_out%}sold-item{% endif %} {% if has_own_row %}item-has-own-row{% endif %} {% if full_width_image %}item-has-own-row-with-full-width-image{% endif %}" href="{{ product.url | within: collection }}">
+  <div class="item-grid-item-image">
+    <img src="{{image}}" alt="{{ product.featured_image.alt | escape }}">
+  </div>
+  <p class="item-grid-item-info">
+
+    {% if sold_out %}
+    
+      <span class="item-grid-item-info-sold">Sold</span>
+    
+    {% endif %}
+    <span class="item-grid-item-info-title">{%if product.vendor %}{{product.vendor}} // {% endif %}{{ product.title }}</span>
+    {% include 'size-display', class_name: 'item-grid-item-info-size', prefix: '' %}
+    <span class="item-grid-item-info-price">
+      {% if on_sale %}
+        <span class="old-price">{{ product.compare_at_price | money }}</span>
+        <span class="sale-price">{{ product.price | money }}</span>
+      {% else %}
+        {{ product.price | money }}
+      {% endif %}
+    </span>
+
+
+
+
+  </p>
+</a>

@@ -1,0 +1,11 @@
+<header class="mobile-home-header">
+  <h1 id="site-title" class="mobile-home-header-title">
+    <a href="/" class="full-title"></a>
+
+  {% unless cart.item_count == 0 %}
+  <a href="/cart" class="show-cart-link" id="cart-buy" data-cart-count="{{cart.item_count}}">
+    Buy <span class="cart-count">({{ cart.item_count }})</span>
+  </a>
+  {% endunless %}
+  </h1>
+</header> 

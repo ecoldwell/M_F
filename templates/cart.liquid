@@ -1,0 +1,145 @@
+<h1 class="page-title">{{ page.title }}</h1>
+{% if cart.item_count > 0 %}
+
+<form action="/cart" method="post">
+
+
+    {% for item in cart.items %}
+
+      {% comment %}
+      Determining the handle of the collection that was last seen for the 'continue shopping' link.
+      {% endcomment %}
+
+      {% assign collection_url = item.product.collections.last.url %}
+      {% if collection_url == '/collections/frontpage' or collection_url == blank %}
+        {% assign collection_url = '/collections/all' %}
+      {% endif %}
+
+      {% if forloop.first %}
+        {% assign continue_shopping_url = collection_url %}
+      {% endif %}
+  <div class="cart-image" id="cart-image">
+    <a href="{{ collection_url }}{{ item.url }}">
+      <img src="{{ item | img_url: 'grande' }}"  alt="{{ item.title | escape }}" />
+    </a>
+  </div>
+
+  <div class="product-cart-name">
+    <h2 class="delta">
+    <th class="hide-on-small">Item</th>
+      <a href="{{ collection_url }}{{ item.url }}">
+      {{ item.title }}
+      </a>
+    </h2>
+  </div>
+
+  <div class="product-details-cart">
+    <div class="hide-on-small">Price: {{ item.price | money }}</div>
+    <div class="quantity-cart">
+      <label id="{{ item.quantity }}">Quantity: </label> <input type="number" name="updates[]" id="updates_{{ item.id }}" class="quantity" value="{{ item.quantity }}" />
+    </div>
+    <div class="hide-on-small">
+      <a href="/cart/change?line={{ forloop.index }}&quantity=0">Remove</a>
+    </div>
+    {% assign properties_amount = item.properties | size %}
+    {% if properties_amount > 0 %}
+    <p>
+      {% for p in item.properties %}
+        {% unless p.last == blank %}
+          {{ p.first }}:
+          {% if p.last contains '/uploads/' %}
+            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+          {% else %}
+            {{ p.last }}
+          {% endif %}
+          <br />
+        {% endunless %}
+      {% endfor %}
+    </p>
+    {% endif %}
+  </div>
+
+  <table>
+    <tbody>
+      <tr>
+        <td class="hide-on-small">
+          <a href="{{ collection_url }}{{ item.url }}">
+            <img src="{{ item | img_url: 'compact' }}"  alt="{{ item.title | escape }}" />
+          </a>
+        </td>
+        <td>
+          <h2 class="delta">
+            <a href="{{ collection_url }}{{ item.url }}">
+            {{ item.title }}
+            </a>
+          </h2>
+          {% comment %}
+          Line Item Properties
+          {% endcomment %}
+          {% assign properties_amount = item.properties | size %}
+          {% if properties_amount > 0 %}
+          <p>
+            {% for p in item.properties %}
+              {% unless p.last == blank %}
+                {{ p.first }}:
+                {% if p.last contains '/uploads/' %}
+                  <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                {% else %}
+                  {{ p.last }}
+                {% endif %}
+                <br />
+              {% endunless %}
+            {% endfor %}
+          </p>
+          {% endif %}
+        </td>
+        <td class="hide-on-small">{{ item.price | money }}</td>
+        <td>
+          <input type="number" name="updates[]" id="updates_{{ item.id }}" class="quantity" value="{{ item.quantity }}" />
+        </td>
+        <td>{{ item.line_price | money }}</td>
+        <td class="hide-on-small">
+          <a href="/cart/change?line={{ forloop.index }}&quantity=0">Remove</a>
+        </td>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+
+  </table>
+
+  <div class="cart-footer">
+
+    <div class="cart-special-instructions">
+      <p>Special Instructions</p>
+      <textarea name="note">{{ cart.note }}</textarea>
+    </div>
+
+    <div class="cart-subtotal-and-actions">
+      <h3 class="gamma">Subtotal {{ cart.total_price | money }}</h3>
+      <a class="hide-on-small" href="{{ continue_shopping_url }}">Continue shopping</a>
+      <span class="or hide-on-small">,</span>
+      <input type="submit" name="update" value="update cart" />
+      <span class="or">or</span>
+      <input type="submit" name="checkout" value="check out" />
+      {% comment %}Paypal and Google checkout buttons{% endcomment %}
+      {% if additional_checkout_buttons %}
+      <p class="additional-checkout-buttons">
+        {{ content_for_additional_checkout_buttons }}
+      </p>
+      {% endif %}
+    </div>
+
+
+
+  </div>
+
+</form>
+
+{% else %}
+
+<div class="empty-cart-text">
+  <p>Your cart is currently empty, continue browsing <a href="/">here</a>.</p>
+</div>
+
+{% endif %}

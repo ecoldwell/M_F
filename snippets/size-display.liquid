@@ -1,0 +1,43 @@
+{% include "sizes" %}
+
+{% assign itemSize = false %}
+{% assign type = false %}
+{% if prefix == blank %}
+  {% assign prefix = "Size " %}
+{% endif %}
+
+{% for size in clotheSizes %}
+  {% if product.tags contains size %}
+    {% assign itemSize = clotheSizesLabels[forloop.index0] %}
+    {% assign type = "clothes" %}
+  {% endif %}
+{% endfor %}
+
+{% unless itemSize %}
+  {% for size in denimSizes %}
+    {% if product.tags contains size %}
+      {% assign itemSize = size %}
+      {% assign type = "denim" %}
+    {% endif %}
+  {% endfor %}
+{% endunless %}
+
+{% unless itemSize %}
+  {% for size in shoeSizes %}
+    {% if product.tags contains size %}
+      {% assign itemSize = size %}
+      {% assign type = "shoes" %}
+    {% endif %}
+  {% endfor %}
+{% endunless %}
+
+{% if itemSize  %}
+  <span class="{{class_name}}">
+    {% if type == "shoes" %}
+      {{prefix}} US {{itemSize}}
+    {% else %}
+      {{prefix}} {{itemSize}}
+    {% endif %}
+
+  </span>
+{% endif %}

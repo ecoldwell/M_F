@@ -1,0 +1,21 @@
+<nav role="navigation" class="center site-nav">
+  <div class="menu">
+    <ul class="upper">
+      {% for link in linklists.main-menu.links %}
+        <li class="{{handle}}  {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <ul class="lower">
+      {% for link in linklists.main-menu-info.links %}
+        {% assign handle = link.title | handleize  %}
+        <li class="{{handle}}  {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
+
+

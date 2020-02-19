@@ -1,0 +1,36 @@
+<footer>
+{% comment %}
+  {% if linklists.footer.links.size > 0 %}
+  <ul role="navigation" class="footer-navigation">
+  {% for link in linklists.footer.links %}
+    <li class="item-wrap-{{link.handle}}">
+      <a href="{{ link.url }}" title="{{ link.title }}" class="{{link.handle}} {% if link.active %} active {% endif %}" {% if link.type == "http_link" %}target="_blank" {% endif %}>{{ link.title }}</a>
+      {% if link.handle == "newsletter" %}
+        <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+          <input class="subscribe-input" placeholder="Enter Email Address" type="email" value="" name="EMAIL">
+          <input type="hidden" name="" tabindex="-1" value="">
+          <input type="submit" value="Enter" name="subscribe" class="button">
+        </form>
+      {% endif %}
+    </li>
+
+
+  {% endfor %}
+  </ul>
+
+   <a href="/cart" class="show-cart-link" id="cart-buy" data-cart-count="{{cart.item_count}}">
+     Buy <span class="cart-count">{{ cart.item_count }}</span>
+   </a>
+
+  {% endif %}
+  {% endcomment %}
+
+
+    <ul class="footer">
+    {% for link in linklists.main-menu.links %}
+          <li class="{{handle}}  {% if link.active %}active{% endif %}">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+  {% endfor %}
+  </ul>
+</footer>

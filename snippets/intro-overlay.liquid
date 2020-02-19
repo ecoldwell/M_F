@@ -1,0 +1,56 @@
+<div class="intro-overlay" id="intro-overlay">
+  <img id="intro-image" src="{{ settings.intro_overlay_asset_name | append : '.jpg' | file_url  }}" />
+  <video  style="display: none" id="intro-video" preload="none" loop="" muted="" poster="{{ settings.intro_overlay_asset_name | append : '.jpg' | file_url  }}">
+    <source id="intro-video-mp4" data-src="{{ settings.intro_overlay_asset_name | append : '.mp4' | file_url }}" type="video/mp4" />
+    <source id="intro-video-webm" data-src="{{ settings.intro_overlay_asset_name | append : '.webm' | file_url  }}" type="video/webm; codecs=vp8,vorbis" />
+  </video>
+
+  <div class="overlay-logo">
+    {% include 'logo' %}
+    </div>
+  <script>
+    //Note: referral check can be cached on "back"
+    var nonInternalReferral = document.referrer.indexOf(document.domain) === -1,
+        showsVideo = window.innerWidth > 400;
+
+    if (window.sessionStorage && sessionStorage.getItem("nomads-intro-overlay-shown") === "true") {
+      var hasAlreadySeenOverlayThisSession = true;
+    }
+
+    var overlayShouldBeShown = (nonInternalReferral && !hasAlreadySeenOverlayThisSession);
+
+    if (overlayShouldBeShown) {
+      if (window.sessionStorage) {
+        sessionStorage.setItem("nomads-intro-overlay-shown", "true");
+      }
+      document.getElementsByTagName("body")[0].className += " intro-overlay-active";
+
+      if (showsVideo) {
+        var mp4 = document.getElementById("intro-video-mp4").getAttribute("data-src");
+        var webm = document.getElementById("intro-video-webm").getAttribute("data-src");
+        document.getElementById("intro-video-mp4").setAttribute("src", mp4);
+        document.getElementById("intro-video-webm").setAttribute("src", webm);
+        document.getElementById("intro-video").setAttribute("autoplay", true);
+        document.getElementById("intro-video").load();
+        document.getElementById("intro-video").oncanplay = function() {
+          document.getElementById("intro-video").play();
+          poster = document.getElementById("intro-video").getAttribute("poster")
+          document.getElementById("intro-video").setAttribute("data-poster", poster)
+          document.getElementById("intro-video").removeAttribute("poster")
+        };
+        document.getElementById("intro-video").style.display = "block";
+      }
+      document.getElementById("intro-overlay").style.display = "block";
+      // if (showsVideo) {
+      //   document.getElementById("intro-video").play();
+      //   setTimeout(function() {
+      //     document.getElementById("intro-video").play(); // Try and workaround safari not playing
+      //     console.log("making play");
+      //   }, 100);
+      // }
+      setTimeout(function(){
+        document.getElementById("intro-overlay").style.opacity = "0";
+      }, 100);
+    }
+  </script>
+</div>

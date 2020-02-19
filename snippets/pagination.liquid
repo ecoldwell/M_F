@@ -1,0 +1,12 @@
+{% if paginate.pages > 1 %}
+  <div class="pagination {% if paginate.next.is_link %}has-more-content{% endif %}">
+    {% if settings.enable_infinite_scrolling %}
+      {% if paginate.next.is_link %}
+        <a href="{{ paginate.next.url }}" class="infinite-pagination-link">Load more items</a>
+      {% endif %}
+      {% endif %}
+    <div class="classic-pagination">
+      {{ paginate | default_pagination | replace: '&laquo; Previous', '←' | replace: 'Next &raquo;', '→' }}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,21 @@
+<h1 class="page-title">{{ page.title }}</h1>
+<div class="rte page-content">
+  {{ page.content }}
+</div>
+
+{% assign menuName = page.handle | append: "-submenu" %}
+{% if linklists[menuName] and linklists[menuName].links.size > 0 %}
+  {% assign links = linklists[menuName].links %}
+  {% for link in links %}
+    {% if link.type == "page_link" %}
+      <a name="{{link.object.handle}}" id="{{link.object.handle}}" class="subpage-anchor"></a>
+      <div class="page-subsection" data-subpage-name="{{link.object.handle}}">
+        <h2 class="subpage-title">{{link.title}}</h2>
+        <div class="rte page-content">
+          {{link.object.content}}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+

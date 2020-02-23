@@ -1749,9 +1749,7 @@ padding-bottom: 3vw;
     z-index: 300;
     background: white;
     position: absolute;
-
-
-  }
+}
 .one {
   // width: 320px;
   width:420px;
@@ -1788,7 +1786,6 @@ padding-bottom: 3vw;
     // display: none;
   }
   #site-title .full-title {
-    // display:none;
     font-family: Mutually_feeling;
     color: white !important;
     z-index: 999999999;
@@ -1814,4 +1811,87 @@ padding-bottom: 3vw;
 
 .presskit-images img{
   object-fit:contain;
+}
+
+// INTRO OVERLAY
+
+.intro-overlay {
+  position: fixed;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  display: none;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: white;
+  opacity: 0;
+  transition: opacity 1300ms ease-out;
+  -ms-transition: opacity 1300ms ease-out;
+  -moz-transition: opacity 1300ms ease-out;
+  -webkit-transition: opacity 1300ms ease-out;
+  cursor: pointer;
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-object-fit: cover;
+    -moz-object-fit: cover;
+    z-index: 300;
+    background: white;
+    position: absolute;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-object-fit: cover;
+    -moz-object-fit: cover;
+    z-index: 200;
+    background: white;
+    position: absolute;
+  }
+  h1 {
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    text-indent: -99999em;
+    position: absolute;
+    z-index: 100000;
+    margin: 0;
+  }
+}
+
+body.intro-overlay-active {
+  overflow: hidden;
+  background: {{settings.intro_overlay_background_color}};
+  .intro-overlay {
+    visibility: visible;
+    pointer-events: all;
+  }
+  .site-wrap {
+    opacity: 0;
+  }
+}
+
+body.no-color-bg {
+  background: white !important;
+  .site-wrap {
+    opacity: 1 !important;
+  }
+}
+
+body.intro-overlay-hidden {
+  overflow: auto;
+  .site-wrap {
+    opacity: 1;
+  }
+  .intro-overlay {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
 }

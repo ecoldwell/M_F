@@ -1,19 +1,16 @@
-<div class="intro-overlay" id="intro-overlay">
+<div class="intro-overlay" id="intro-overlay" style="background-color: {{settings.intro_overlay_background_color}}">
   <img id="intro-image" src="{{ settings.intro_overlay_asset_name | append : '.jpg' | file_url  }}" />
   <video  style="display: none" id="intro-video" preload="none" loop="" muted="" poster="{{ settings.intro_overlay_asset_name | append : '.jpg' | file_url  }}">
     <source id="intro-video-mp4" data-src="{{ settings.intro_overlay_asset_name | append : '.mp4' | file_url }}" type="video/mp4" />
     <source id="intro-video-webm" data-src="{{ settings.intro_overlay_asset_name | append : '.webm' | file_url  }}" type="video/webm; codecs=vp8,vorbis" />
   </video>
 
-  <div class="overlay-logo">
-    {% include 'logo' %}
-    </div>
   <script>
     //Note: referral check can be cached on "back"
     var nonInternalReferral = document.referrer.indexOf(document.domain) === -1,
         showsVideo = window.innerWidth > 400;
 
-    if (window.sessionStorage && sessionStorage.getItem("nomads-intro-overlay-shown") === "true") {
+    if (window.sessionStorage && sessionStorage.getItem("mf-intro-overlay-shown") === "true") {
       var hasAlreadySeenOverlayThisSession = true;
     }
 
@@ -21,7 +18,7 @@
 
     if (overlayShouldBeShown) {
       if (window.sessionStorage) {
-        sessionStorage.setItem("nomads-intro-overlay-shown", "true");
+        sessionStorage.setItem("mf-intro-overlay-shown", "true");
       }
       document.getElementsByTagName("body")[0].className += " intro-overlay-active";
 
@@ -49,7 +46,7 @@
       //   }, 100);
       // }
       setTimeout(function(){
-        document.getElementById("intro-overlay").style.opacity = "0";
+        document.getElementById("intro-overlay").style.opacity = "1";
       }, 100);
     }
   </script>

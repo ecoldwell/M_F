@@ -73,6 +73,40 @@ var setupProductPage = function () {
 };
 
 
+  $(".intro-overlay").click(function() {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    $("body").addClass("intro-overlay-hidden");
+    if (document.getElementById("intro-video").currentTime !== 0 && !document.getElementById("intro-video").paused) {
+      setTimeout(function() {
+        document.getElementById("intro-video").pause();
+      }, 4000);
+    }
+  });
+
+  $("intro-overlay").click(function(e) {
+    console.log("click");
+    $("body").addClass("no-color-bg");
+    e.preventDefault();
+    e.stopPropagation();
+    if (window.innerWidth > 400) {
+      if (!document.getElementById("intro-video-mp4").getAttribute("src")){
+        var mp4 = document.getElementById("intro-video-mp4").getAttribute("data-src");
+        var webm = document.getElementById("intro-video-webm").getAttribute("data-src");
+        document.getElementById("intro-video-mp4").setAttribute("src", mp4);
+        document.getElementById("intro-video-webm").setAttribute("src", webm);
+        document.getElementById("intro-video").load();
+      }
+      document.getElementById("intro-video").play();
+      document.getElementById("intro-video").style.display = "block";
+    }
+    $("body").addClass("intro-overlay-active").removeClass("intro-overlay-hidden");
+    document.getElementById("intro-overlay").style.display = "block";
+    setTimeout(function() {
+      document.getElementById("intro-overlay").style.opacity = "1";
+    }, 500);
+  });
+
+
 // $('.mobile-header, .menu').on('click', function (e){
 // 	e.preventDefault();
 // 	console.log('yay');

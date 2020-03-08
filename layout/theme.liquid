@@ -56,12 +56,10 @@
 
 </head>
 
-
-
 <body id="{{ page_title | handle }}" {% if template == "page" %} data-page-handle={{page.handle}} {% endif %} class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
-  {% include 'intro-overlay' %}
-  <div class="container" id="PageContainer">
 
+  <div class="container" id="PageContainer">
+    {% include 'intro-overlay' %}
 
     {% include "header" %}
 

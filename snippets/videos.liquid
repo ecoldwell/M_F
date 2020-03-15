@@ -33,6 +33,39 @@
 	    </a>
 	  </li>
 	{% endfor %}
+	{% for link in linklists.page-four.links %}
+	<li class="{{handle}}  {% if link.active %}active{% endif %}">
+	  <a href="{{ link.url }}">
+	<video id="intro-video" class="four" preload="none" autoplay="" loop="" muted poster="{{ settings.video_four | append : '.jpg' | file_url  }}">
+	  <source id="intro-video-mp4" src="{{ settings.video_four | append : '.mp4' | file_url }}" type="video/mp4" />
+	  <source id="intro-video-webm" data-src="{{ settings.video_four | append : '.webm' | file_url  }}" type="video/webm; codecs=vp8,vorbis" />
+	</video>
+		  
+	  </a>
+	</li>
+  {% endfor %}
+  {% for link in linklists.page-five.links %}
+  <li class="{{handle}}  {% if link.active %}active{% endif %}">
+	<a href="{{ link.url }}">
+  <video id="intro-video" class="five" preload="none" autoplay="" loop="" muted poster="{{ settings.video_five | append : '.jpg' | file_url  }}">
+	<source id="intro-video-mp4" src="{{ settings.video_five | append : '.mp4' | file_url }}" type="video/mp4" />
+	<source id="intro-video-webm" data-src="{{ settings.video_five | append : '.webm' | file_url  }}" type="video/webm; codecs=vp8,vorbis" />
+  </video>
+		
+	</a>
+  </li>
+{% endfor %}
+{% for link in linklists.page-six.links %}
+<li class="{{handle}}  {% if link.active %}active{% endif %}">
+  <a href="{{ link.url }}">
+<video id="intro-video" class="six" preload="none" autoplay="" loop="" muted poster="{{ settings.video_six | append : '.jpg' | file_url  }}">
+  <source id="intro-video-mp4" src="{{ settings.video_six | append : '.mp4' | file_url }}" type="video/mp4" />
+  <source id="intro-video-webm" data-src="{{ settings.video_six | append : '.webm' | file_url  }}" type="video/webm; codecs=vp8,vorbis" />
+</video>
+	  
+  </a>
+</li>
+{% endfor %}
 	</div>
 	<script>
 	  //Note: referral check can be cached on "back"
@@ -93,6 +126,52 @@
 	    };
 	    document.getElementById("intro-video-three").style.display = "block";
 	  }
+	  if (showsVideo) {
+	    var mp4 = document.getElementById("intro-video-mp4-four").getAttribute("data-src");
+	    var webm = document.getElementById("intro-video-webm-four").getAttribute("data-src");
+	    document.getElementById("intro-video-mp4-four").setAttribute("src", mp4);
+	    document.getElementById("intro-video-webm-four").setAttribute("src", webm);
+	    document.getElementById("intro-video-four").setAttribute("autoplay", true);
+	    document.getElementById("intro-video-four").load();
+	    document.getElementById("intro-video-four").oncanplay = function() {
+	      document.getElementById("intro-video-four").play();
+	      poster = document.getElementById("intro-video-four").getAttribute("poster")
+	      document.getElementById("intro-video-four").setAttribute("data-poster", poster)
+	      document.getElementById("intro-video-four").removeAttribute("poster")
+	    };
+	    document.getElementById("intro-video-four").style.display = "block";
+	  }
+	  if (showsVideo) {
+	    var mp4 = document.getElementById("intro-video-mp4-five").getAttribute("data-src");
+	    var webm = document.getElementById("intro-video-webm-five").getAttribute("data-src");
+	    document.getElementById("intro-video-mp4-five").setAttribute("src", mp4);
+	    document.getElementById("intro-video-webm-five").setAttribute("src", webm);
+	    document.getElementById("intro-video-five").setAttribute("autoplay", true);
+	    document.getElementById("intro-video-five").load();
+	    document.getElementById("intro-video-five").oncanplay = function() {
+	      document.getElementById("intro-video-five").play();
+	      poster = document.getElementById("intro-video-five").getAttribute("poster")
+	      document.getElementById("intro-video-five").setAttribute("data-poster", poster)
+	      document.getElementById("intro-video-five").removeAttribute("poster")
+	    };
+	    document.getElementById("intro-video-five").style.display = "block";
+	  }
+	  if (showsVideo) {
+	    var mp4 = document.getElementById("intro-video-mp4-six").getAttribute("data-src");
+	    var webm = document.getElementById("intro-video-webm-six").getAttribute("data-src");
+	    document.getElementById("intro-video-mp4-six").setAttribute("src", mp4);
+	    document.getElementById("intro-video-webm-six").setAttribute("src", webm);
+	    document.getElementById("intro-video-six").setAttribute("autoplay", true);
+	    document.getElementById("intro-video-six").load();
+	    document.getElementById("intro-video-six").oncanplay = function() {
+	      document.getElementById("intro-video-six").play();
+	      poster = document.getElementById("intro-video-six").getAttribute("poster")
+	      document.getElementById("intro-video-six").setAttribute("data-poster", poster)
+	      document.getElementById("intro-video-six").removeAttribute("poster")
+	    };
+	    document.getElementById("intro-video-six").style.display = "block";
+	  }
+
 
 	</script>
 </div>

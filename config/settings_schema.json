@@ -119,6 +119,27 @@
         "label": "Asset Name",
         "info": "You must upload jpg, mp4, and webm files with this file name. Eg. if you enter 'intro' above, make sure to upload the following files to the files section: intro.jpg intro.mp4 intro.webm",
         "default": "intro"
+      },
+      {
+        "type": "text",
+        "id": "video_four",
+        "label": "Asset Name",
+        "info": "You must upload jpg, mp4, and webm files with this file name. Eg. if you enter 'intro' above, make sure to upload the following files to the files section: intro.jpg intro.mp4 intro.webm",
+        "default": "intro"
+      },
+      {
+        "type": "text",
+        "id": "video_five",
+        "label": "Asset Name",
+        "info": "You must upload jpg, mp4, and webm files with this file name. Eg. if you enter 'intro' above, make sure to upload the following files to the files section: intro.jpg intro.mp4 intro.webm",
+        "default": "intro"
+      },
+      {
+        "type": "text",
+        "id": "video_six",
+        "label": "Asset Name",
+        "info": "You must upload jpg, mp4, and webm files with this file name. Eg. if you enter 'intro' above, make sure to upload the following files to the files section: intro.jpg intro.mp4 intro.webm",
+        "default": "intro"
       }
     ]
   },
@@ -134,7 +155,7 @@
       },
       {
         "type": "text",
-        "id": "video_four",
+        "id": "video_seven",
         "label": "Asset Name",
         "info": "You must upload jpg, mp4, and webm files with this file name. Eg. if you enter 'intro' above, make sure to upload the following files to the files section: intro.jpg intro.mp4 intro.webm"
       }

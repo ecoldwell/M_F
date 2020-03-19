@@ -437,6 +437,7 @@ table {
    5. Header
    ================== */
 
+
 header{
   padding: 0 $content-margin-horizontal;
   height: $desktop-header-height;
@@ -449,7 +450,7 @@ header{
   // @include align-items(center);
   @include flex-direction(column);
   // @include justify-content(space-between);
-  // z-index: 9999;
+
   // font-weight: bold;
 
   #site-title {
@@ -504,6 +505,14 @@ header{
     &[data-cart-count="0"] {
       display: none;
     }
+  }
+}
+
+
+#press-kit {
+  header {
+    z-index: 9999;
+    background-color: #dc3232;
   }
 }
 

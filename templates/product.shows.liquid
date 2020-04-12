@@ -9,7 +9,8 @@
   <meta itemprop="image" content="{{ product | img_url: 'grande' }}" />
 
   <!-- <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm"> -->
-  <div class="product-inner">
+  {% comment %} TRY SHIT OUT {% endcomment %}
+  {% comment %} <div class="product-inner">
     <ul class="product-photos">
       {% if product.images.size > 0 %}
         {% for image in product.images %}
@@ -20,8 +21,18 @@
         </li>
         {% endfor %}
       {% endif %}
-    </ul>
+    </ul> {% endcomment %}
 
+
+<div class="product-inner">
+      {% if product.images.size > 0 %}
+        {% for image in product.images %}
+          <a href="{{ image  | img_url: '2400x' }}" class="">
+            {% comment %} {% include 'responsive-image', image: image, sizes: "(max-width: 700px) 100vw, 50vw" %} {% endcomment %}
+            <img src="{{ image  | img_url: '2400x' }}" alt="{{ image.alt }}"/>
+          </a>
+        {% endfor %}
+      {% endif %}
 
     <div class="product-details">
       <div class="product-details-inner">

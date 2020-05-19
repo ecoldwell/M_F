@@ -25,14 +25,7 @@
 
 
 <div class="product-inner">
-      {% if product.images.size > 0 %}
-        {% for image in product.images %}
-          <a href="{{ image  | img_url: '2400x' }}" class="">
-            {% comment %} {% include 'responsive-image', image: image, sizes: "(max-width: 700px) 100vw, 50vw" %} {% endcomment %}
-            <img src="{{ image  | img_url: '2400x' }}" alt="{{ image.alt }}"/>
-          </a>
-        {% endfor %}
-      {% endif %}
+      
 
     <div class="product-details">
       <div class="product-details-inner">
@@ -144,6 +137,14 @@
 
 
       </div><!-- .product-details-secondary -->
+      {% if product.images.size > 0 %}
+        {% for image in product.images %}
+          <a href="{{ image | img_url: '2400x' }}" class="">
+            {% comment %} {% include 'responsive-image', image: image, sizes: "(max-width: 700px) 100vw, 50vw" %} {% endcomment %}
+            <img src="{{ image | img_url: '2400x' }}" alt="{{ image.alt }}"/>
+          </a>
+        {% endfor %}
+      {% endif %}
       </div><!-- .product-details-inner -->
     </div><!-- .product-details -->
   </div><!-- .product-inner -->

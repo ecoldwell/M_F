@@ -69,3 +69,10 @@
     font-weight: 300;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'mf';
+    src: url('Mutually_feeling-Regular.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}

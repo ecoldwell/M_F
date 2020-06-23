@@ -139,6 +139,7 @@
       </div><!-- .product-details-secondary -->
       {% comment %} IMAGES START HERE {% endcomment %}
       {% if product.images.size > 0 %}
+      <h2 class="shows-past-events-header" itemprop="name">Past Events</h2>
         <div class="shows-image-container">
           {% for image in product.images %}
             <a href="{{ image | img_url: '2400x' }}" class="">

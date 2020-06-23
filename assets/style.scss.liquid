@@ -188,7 +188,7 @@ $background-color: {{settings.color_body_bg}};
 $text-color: {{settings.color_body_text}};
 $link-color: {{settings.color_body_text}};
 $content-margin-horizontal: 4vw;
-$desktop-header-height: 13vh;
+$desktop-header-height: 12vh; // reduced from 13 to 12 -Matthew
 $image-ratio: 1.3;  // This is the height as compared to the width;
 
 $mobile-breakpoint: 700px; // Keep synced with variables.liquid and javascript
@@ -439,6 +439,7 @@ table {
 
 
 header{
+  background-color: #dc3232;
   padding: 0 $content-margin-horizontal;
   height: $desktop-header-height;
   padding-top: 1vh;
@@ -740,7 +741,9 @@ a {
 #main {
   min-height: calc( 100vh - 10vw );
   // max-width: 850px;
-  margin: 0 auto;
+  // margin: 0 auto;
+  // MATTHEW CHANGE:
+  margin-top: 10vh;
 }
 // "rte" - rich text editor, any content provide via the shopify html editor
 
@@ -1091,6 +1094,11 @@ body[data-page-handle="stockists"],
         max-width: 200px;
         width: 100%;
       }
+    }
+    .shows-past-events-header {
+      // Matthew changes: 
+      font-weight: bold;
+      margin-bottom: 3vw;
     }
   }
 }

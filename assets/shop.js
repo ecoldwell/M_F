@@ -70,6 +70,12 @@ var setupProductPage = function () {
     imageMaxHeight: 1,
     background: "rgba(0,0,0,1)"
   });
+  $('.shows-image-container').slickLightbox({
+    itemSelector: '.lightbox-link',
+    closeOnBackdropClick: false,
+    imageMaxHeight: 1,
+    background: "rgba(0,0,0,1)"
+  });
 };
 
 // $('.mobile-header, .menu').on('click', function (e){

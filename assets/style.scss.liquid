@@ -188,7 +188,7 @@ $background-color: {{settings.color_body_bg}};
 $text-color: {{settings.color_body_text}};
 $link-color: {{settings.color_body_text}};
 $content-margin-horizontal: 4vw;
-$desktop-header-height: 13vh;
+$desktop-header-height: 12vh;
 $image-ratio: 1.3;  // This is the height as compared to the width;
 
 $mobile-breakpoint: 700px; // Keep synced with variables.liquid and javascript
@@ -507,6 +507,7 @@ header{
   }
 }
 
+
 nav.site-nav {
   // min-height: 100vh;
   // line-height: 1.4;
@@ -731,6 +732,7 @@ a {
   min-height: calc( 100vh - 10vw );
   // max-width: 850px;
   margin: 0 auto;
+  // padding-top:10vh;
 }
 // "rte" - rich text editor, any content provide via the shopify html editor
 
@@ -1814,17 +1816,44 @@ body.intro-overlay-hidden {
   font-size: 60px;
 }
 
-#upcomming-shows .shows-image-container {
+#events .shows-image-container {
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   flex-grow: 1;
   a {
-    width: 23vw;
+    // width: 23vw;
   }
   img {
     width: 100%;
+  }
+}
+
+// Upcoming Shows page MATT
+
+#events {
+  background-color: #dc3232;
+  .product-inner {
+    margin-top: 12vh; 
+    .shows-image-container {
+      max-width: 40vw;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding-top:0;
+      .shows-image {
+        max-width: 200px;
+        width: 100%;
+      }
+    }
+    .shows-past-events-header {
+      // Matthew changes: 
+      font-weight: bold;
+      margin-bottom: 3vw;
+      margin-top:3vw;
+    }
   }
 }
 
@@ -1845,7 +1874,7 @@ body.intro-overlay-hidden {
   @include flex-wrap(wrap);
   @include justify-content(space-around);
   a {
-    width: 23vw;
+    // width: 23vw;
   }
 }
 .shows-image {

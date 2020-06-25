@@ -188,7 +188,7 @@ $background-color: {{settings.color_body_bg}};
 $text-color: {{settings.color_body_text}};
 $link-color: {{settings.color_body_text}};
 $content-margin-horizontal: 4vw;
-$desktop-header-height: 12vh; // reduced from 13 to 12 -Matthew
+$desktop-header-height: 12vh;
 $image-ratio: 1.3;  // This is the height as compared to the width;
 
 $mobile-breakpoint: 700px; // Keep synced with variables.liquid and javascript
@@ -499,8 +499,8 @@ header{
     padding-left:4vw;
     border-bottom: 0px solid rgba(0,0,0,0) !important;
     font-weight: bold !important;
-    font-family: Mutually_feeling;
-    font-family: Mutually_feeling;
+    font-family:mf, helvetica, sans-serif;;
+    font-family: mf, helvetica, sans-serif;;
     color: white !important;
     z-index: 999999999;
     &[data-cart-count="0"] {
@@ -741,9 +741,8 @@ a {
 #main {
   min-height: calc( 100vh - 10vw );
   // max-width: 850px;
-  // margin: 0 auto;
-  // MATTHEW CHANGE:
-  margin-top: 10vh;
+  margin: 0 auto;
+  // padding-top:10vh;
 }
 // "rte" - rich text editor, any content provide via the shopify html editor
 
@@ -853,7 +852,7 @@ body[data-page-handle="stockists"],
 
 .grid:hover {
   .item-grid-item {
-    opacity: 0.5;
+    opacity: 0.7;
     &:hover {
       opacity: 1;
     }
@@ -1657,8 +1656,6 @@ padding-bottom: 3vw;
 }
 
 .intro-homepage {
- height: 100vh;
- overflow:hidden;
   @include flexbox();
   @include flex-direction(column);
   @include justify-content(flex-end);
@@ -1679,28 +1676,29 @@ padding-bottom: 3vw;
 }
 .one {
   // width: 320px;
-  width:420px;
-  height: 240px;
-  float: right;
-  position: relative;
-  margin-right: 75px;
-  height: 100%;
+  width: 600px;
+    height: 240px;
+    float: right;
+    position: relative;
+    margin-right: 250px;
+    height: 100%;
+    margin-bottom: 75px;
 }
 
 .two {
   // width: 320px;
-  width:420px;
+  width: 720px;
   height: 184px;
-  margin-left: 50px;
+  margin-left: 300px;
   float: left;
   position: relative;
-    height: 100%;
+  height: 100%;
+  margin-bottom: 160px;
 }
 
 .three {
   // width: 320px;
   width:420px;
-  height: 240px;
   float: right;
   position: relative;
   margin-right: 75px;
@@ -1713,7 +1711,7 @@ padding-bottom: 3vw;
     // display: none;
   }
   #site-title .full-title {
-    font-family: Mutually_feeling;
+    font-family: mf, helvetica, sans-serif;;
     color: white !important;
     // z-index: 999999999;
   }
@@ -1846,7 +1844,119 @@ body.intro-overlay-hidden {
   z-index: 999999999999999999999999999;
   width: 100%;
   height: 100%;
-  font-family: Mutually_feeling !important;
+  font-family: mf, helvetica, sans-serif !important;
   color: white;
   font-size: 60px;
+}
+
+#events .shows-image-container {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-grow: 1;
+  a {
+    // width: 23vw;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+// Upcoming Shows page MATT
+
+#events {
+  background-color: #dc3232;
+  .product-inner {
+    margin-top: 12vh; 
+    .shows-image-container {
+      max-width: 40vw;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding-top:0;
+      .shows-image {
+        max-width: 200px;
+        width: 100%;
+      }
+    }
+    .shows-past-events-header {
+      // Matthew changes: 
+      font-weight: bold;
+      margin-bottom: 3vw;
+      margin-top:3vw;
+    }
+  }
+}
+
+#events {
+  .product .product-details {
+    max-width:1200px !important;
+  }
+  .product-details-main {
+    padding-top: 4vw;
+  }
+  .product-details-secondary {
+    border-bottom: 3px solid;
+  }
+}
+.shows-image-container {
+  padding-top:4vw;
+  @include flexbox();
+  @include flex-wrap(wrap);
+  @include justify-content(space-around);
+  a {
+    // width: 23vw;
+  }
+}
+.shows-image {
+  width:100%;
+}
+
+.homepage-background {
+  opacity:0.2;
+}
+.homepage-content {
+  position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999999999;
+    .grid {
+      @include align-items(center);
+      @include justify-content(space-around);
+    }
+    .item-grid-item {
+      position: relative;
+      .item-grid-item-info-sold {
+        display:none;
+      }
+      .item-grid-item-info-price {
+        display:none;
+      }
+      .item-grid-item-info-title {
+        position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    /* width: 70%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    font-family: mf;
+    text-transform: uppercase;
+    color: red;
+    font-size: 40px;
+    word-break: break-word;
+    text-align: center;
+      }
+    }
 }

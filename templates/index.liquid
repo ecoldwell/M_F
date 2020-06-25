@@ -2,12 +2,19 @@
 {% assign is_home_page = true %}
 <div class= "site-wrap">
 {% if template == "index" %}
+<div class="homepage-background">
+  {% include 'videos' %}
+</div>
+<div class="homepage-content">
+{% assign collection = collections[settings.homepage_collection] %}
   {% include 'header' %}
   {% include 'mobile-homepage' %}
-
-  {% include 'videos' %}
-  <!-- {% include 'full-screen-video' %} -->
+{% include 'collection' %}
   {% include 'site-nav' %}
+  </div>
+
+  <!-- {% include 'full-screen-video' %} -->
+
 {% endif %}
 </div>
 

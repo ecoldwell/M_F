@@ -511,7 +511,7 @@ header{
 
 // matt css changes
 
-#press-kit, #shows, #ex-2 {
+#press-kit, #events, #ex-2 {
   header {
     z-index: 9999;
     background-color: #dc3232;
@@ -1098,6 +1098,35 @@ body[data-page-handle="stockists"],
       // Matthew changes: 
       font-weight: bold;
       margin-bottom: 3vw;
+    }
+  }
+}
+
+#videos {
+  @include mobile {
+    max-width: unset!important;
+  }
+  header {
+    z-index: 9999;
+  }
+  #main {
+    min-height: unset;
+    max-width: unset;
+    .product-inner {
+      margin-top: 12vh;
+      .videos-player-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        iframe {
+          position: absolute;
+          top:0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
   }
 }

@@ -1,0 +1,89 @@
+{% comment %} hello I am THE REAL matt {% endcomment %}
+{% assign add_to_cart = 'Add to cart' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}
+
+<div class="product" id="videos" itemscope itemtype="http://schema.org/Product">
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product | img_url: 'grande' }}" />
+
+<div class="product-inner">
+      
+
+    <div class="product-details">
+      <div class="product-details-inner">
+      <div class="product-details-main">
+
+        <h1 itemprop="name">{{ product.title }}</h1>
+
+        <div class="videos-player-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/mU2kuO5yGls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      <div class="product-details-secondary">
+        <div id="product-description" class="rte" itemprop="description">
+          {{ product.description }}
+        </div>
+
+      </div><!-- .product-details-inner -->
+    </div><!-- .product-details -->
+  </div><!-- .product-inner -->
+<!--   </form> -->
+
+</div>
+
+
+{% comment %}
+  Adding support for product options. See here for details:
+  http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options
+{% endcomment %}
+
+
+<script>
+var selectCallback = function(variant, selector) {
+  console.log (variant, selector)
+  if (variant) {
+    // Selected a valid variant that is available.
+    if (variant.available) {
+       // class="variant-selector" data-variant-id="{{variant.id}}"
+       $newChoice = $(".variant-selector[data-variant-id='" + variant.id + "']");
+       $newChoice.closest(".variant-selection").find(".variant-selector").removeClass("selected");
+       $newChoice.addClass("selected");
+       $("#product-select").val(variant.id).change();
+      // Enabling add to cart button.
+      jQuery('#add').removeClass('disabled').prop('disabled', false).val({{ add_to_cart | json }});
+    // If item is backordered yet can still be ordered, we'll show special message.
+      if (variant.inventory_management && variant.inventory_quantity <= 0) {
+        jQuery('#selected-variant').html({{ product.title | json }}{% unless hide_default_title %} + ' - ' + variant.title{% endunless %});
+        jQuery('#backorder').removeClass("hidden");
+      } else {
+        jQuery('#backorder').addClass("hidden");
+      }
+    } else {
+      // Variant is sold out.
+      jQuery('#backorder').addClass('hidden');
+      jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);
+    }
+   // Whether the variant is in stock or not, we can update the price and compare at price.
+    if ( variant.compare_at_price > variant.price ) {
+      jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<s class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</s>');
+    } else {
+      jQuery('#product-price').html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );
+    }
+  } else {
+    // variant doesn't exist.
+    jQuery('#product-price').empty();
+    jQuery('#backorder').addClass('hidden');
+    jQuery('#add').val({{ unavailable | json }}).addClass('disabled').prop('disabled', true);
+  }
+};
+jQuery(function($) {
+  new Shopify.OptionSelectors('product-select', { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+  // Add label if only one product option and it isn't 'Title'.
+  {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+  {% endif %}
+});
+// Shopify.Image.preload({{ product.images | json }}, 'grande');
+// Shopify.Image.preload({{ product.images | json }}, '1024x1024');
+</script>
